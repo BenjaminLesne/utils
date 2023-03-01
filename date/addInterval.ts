@@ -1,9 +1,18 @@
-const YEARS = 0
-const MONTHS = 1
-const DAYS = 2
-const HOURS = 3
-const MINUTES = 4
-const SECONDS = 5
+const INTERVAL_UNITS = {
+ YEARS: 0,
+ MONTHS: 1,
+ DAYS: 2,
+ HOURS: 3,
+ MINUTES: 4,
+ SECONDS: 5
+} as const
+
+type IntervalUnits = keyof typeof INTERVAL_UNITS;
+type AddIntervalProps = {
+    date: Date,
+  // this doesnt work, it needs some work still
+    interval: {[IntervalUnits]: number} 
+}
 /**
  * Construct a new date with a given date and interval.
  * 
