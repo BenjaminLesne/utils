@@ -1,3 +1,6 @@
+import { isObject } from '../object/isObject'
+import { getValueOfPath } from '../object/getValueOfPath'
+
 const array1 = [1, 2, 1, 1, 1, 2, 3, 2];
 const array2 = [
   { value: 1 },
@@ -60,22 +63,3 @@ function filterUniqueItem({ values, path = null }: FilterUniqueItemProps) {
 }
 console.log(array2);
 console.log(filterUniqueItem({ values: array2, path: "value" }));
-type GetValueOfPathProps = {
-  obj: object;
-  path: string;
-};
-/**
- * Get the value of a variable in an object based on a path.
- *
- * Example: obj = {user:{name: 'John'}}, path = 'user.name' returns 'John'
- */
-function getValueOfPath({ obj, path }: GetValueOfPathProps) {
-  return path.split(".").reduce((result, key) => result[key], obj);
-}
-/**
- *
- * return true if argument is an object 
- */
-function isObject(item: any) {
-  return typeof item === "object" && !Array.isArray(item) && item !== null;
-}
