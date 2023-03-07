@@ -21,7 +21,7 @@ type FilterUniqueItemProps = {
  * You can also provide a path to the value you want to compare
  * example: "user.id" will check in  the given array of objects each yourObject.user.id value with the rest of the array.
  */
-function filterUniqueItem({ values, path = null }: FilterUniqueItemProps) {
+function filterUniqueItems({ values, path = null }: FilterUniqueItemProps) {
   const hasPath = typeof path === 'string';
   if (path && values.some((value) => isObject(value) === false))
     throw Error("You can't pass a path if your values are not objects");
@@ -62,4 +62,4 @@ function filterUniqueItem({ values, path = null }: FilterUniqueItemProps) {
   return result;
 }
 console.log(array2);
-console.log(filterUniqueItem({ values: array2, path: "value" }));
+console.log(filterUniqueItems({ values: array2, path: "value" }));
