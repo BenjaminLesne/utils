@@ -38,3 +38,58 @@ function assertNever(value: never) {
   console.error("Unknown value", value);
   throw Error("Not possible");
 }
+
+/*
+ * Get required properties types from object type.
+ */
+
+type GetRequired<T> = {
+  [K in keyof T as T[K] extends Required<T>[K]
+    ? K
+    : never]: T[K];
+};
+
+type Person = {
+  name: string;
+  age: number;
+  comment?: string;
+}
+
+// on hover only shows name and age properties
+type PersonRequiredFields = GetRequired<Person> 
+
+// /GetRequired
+
+
+type GetOptional<T> = Omit<T, keyof GetRequired<T>>;
+
+// on hover shows only optional comment property type
+type PersonOptionalFields = GetOptional<Person> 
+
+
+// /GetOptional
+
+/*
+ *  object should have at least one property. 
+ */
+type Split<T> = {
+  [K in keyof T]: {
+    [P in K]: T[P];
+  };
+}[keyof T];
+
+type Interests = {
+  music: boolean;
+  book: boolean;
+  programming: boolean;
+}
+
+const getInterest = (interests: Split<Interests>) => interests
+
+// interests object should have at least one interest
+const JohnInterest = getInterest({})
+
+// does not error
+const DoeInterest = getInterest({music: true})
+
+// /Split
