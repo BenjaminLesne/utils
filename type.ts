@@ -1,18 +1,32 @@
 /*
- * Hover the PrettifyOn type and the PrettifyOff type.
- * It is much easier to understand what the nested type is in PrettifyOn compared to PrettifyOff type
+ * Hover the PrettifyOn types and the PrettifyOff type.
+ * It is much easier to understand what the nested type is in PrettifyOn compared to PrettifyOff type, or even better, check DeepPrettify type out!
  */
 type Prettify<T> = {
   [K in keyof T]: T[K];
 };
 
+type DeepPrettify<T> = T extends object
+  ? {
+      [K in keyof T]: DeepPrettify<T[K]>;
+    }
+  : T;
+
+type Address = {
+  city: string;
+  stree: string;
+};
+
 type PrettifyCore = {
   name: string;
+  address: Address;
 };
 
 type PrettifyOff = PrettifyCore & { age: number };
 
 type PrettifyOn = Prettify<PrettifyCore & { age: number }>;
+
+type DeepPrettifyOn = DeepPrettify<PrettifyCore & { age: number }>;
 
 // /Prettify type
 
